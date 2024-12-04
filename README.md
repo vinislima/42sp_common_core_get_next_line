@@ -1,0 +1,1 @@
+# 42sp_common_core_get_next_line
