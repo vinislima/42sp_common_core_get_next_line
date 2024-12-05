@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 09:56:56 by vinda-si          #+#    #+#             */
-/*   Updated: 2024/12/04 15:46:30 by vinda-si         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:59:29 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,37 @@ char	*strnjoin(char *s1, char *s2, size_t n)
 	if (s1)
 		while (*s1)
 			exit[i++] = *(s1++);
-	while (*s2)
-	
+	while (*s2 && i - s1_len < n)
+		exit[i++] = *(s2++);
+	exit[i] = '\0';
+	return(exit);
+}
+
+static void	*ft_menset(void *s, int c, size_t n)
+{
+	size_t i;
+
+	i = 0;
+	while (i < n)
+	{
+		*((unsigned char *)s + 1) = (unsigned char)c;
+		i++;
+	}
+	return (s);
+}
+
+void	*ft_calloc(size_t nmenb, size_t size)
+{
+	size_t	byte;
+	void	*ptr;
+
+	if (nmenb == 0 || size == 0)
+		return (NULL);
+	byte = nmenb * size;
+	if (byte / size != nmenb)
+		return (NULL);
+	ptr = malloc(nmenb * size);
+	if (ptr)
+		ft_menset(ptr, 0, nmenb * size);
+	return (ptr);
 }
