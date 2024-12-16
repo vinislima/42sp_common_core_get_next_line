@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 09:56:56 by vinda-si          #+#    #+#             */
-/*   Updated: 2024/12/06 16:49:35 by vinda-si         ###   ########.fr       */
+/*   Updated: 2024/12/16 18:20:34 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,77 +14,90 @@
 
 size_t	ft_strlen(const char *c)
 {
-	size_t	count;
+	int	count;
 
 	count = 0;
-	while (c[count] != '\0')
+	while (c[count])
 		count++;
 	return (count);
 }
 
-void	*ft_menset(void *s, int c, size_t n)
-{
-	unsigned char	*temp_str;
-	size_t			count;
-
-	temp_str = (unsigned char *)s;
-	count = 0;
-	while (count < n)
-	{
-		temp_str[count] = (unsigned char)c;
-		count++;
-	}
-	return (s);
-}
-
-void	*ft_calloc(size_t nmenb, size_t size)
-{
-	void	*ptr;
-	size_t	calc_size;
-
-	if (nmenb == 0 || size == 0)
-		return (malloc(0));
-	if (nmenb > (size_t)-1 / size)
-		return (NULL);
-	calc_size = nmenb * size;
-	ptr = malloc(calc_size);
-	if (!ptr)
-		return (NULL);
-	ft_menset(ptr, 0, calc_size);
-	return (ptr);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
-	int	count;
-
-	count = 0;
-	while ((char)c != s[count])
+	while (*s)
 	{
-		if (s[count] == '\0')
-			return (0);
-		count++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
-	return ((char *)&s[count]);
+	if (c == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*copy;
+	int		i;
+
+	copy = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*new_str;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	total_len;
+	char	*concat;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	total_len = s1_len + s2_len + 1;
-	new_str = (char *)malloc(total_len * sizeof(char));
-	if (!new_str)
+	concat = (char *)malloc((sizeof(char)) * ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!concat)
 		return (NULL);
-	ft_memcpy(new_str, s1, s1_len);
-	ft_memcpy(new_str + s1_len, s2, s2_len);
-	new_str[total_len - 1] = '\0';
-	return (new_str);
+	i = 0;
+	while (s1[i])
+	{
+		concat[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+	{
+		concat[i + j] = s2[j];
+		j++;
+	}
+	concat[i + j] = '\0';
+	return (concat);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	if ((size_t)start >= ft_strlen(s))
+		return (ft_strdup(""));
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	i = 0;
+	while (s[start + 1] && i < len)
+	{
+		sub[i] = s[start + i];
+		i++;
+	}
+	sub[i] = '\0';
+	return (sub);
 }
