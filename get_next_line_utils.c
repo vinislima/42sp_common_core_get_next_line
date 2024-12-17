@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 09:56:56 by vinda-si          #+#    #+#             */
-/*   Updated: 2024/12/16 22:05:30 by vinda-si         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:20:12 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		j;
 
-	concat = (char *)malloc((sizeof(char)) * ft_strlen(s1) + ft_strlen(s2) + 1);
+	concat = (char *)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!concat)
 		return (NULL);
 	i = 0;
@@ -91,7 +91,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!sub)
 		return (NULL);
 	i = 0;
-	while (s[start + 1] && i < len)
+	while (s[start + i] && i < len)
 	{
 		sub[i] = s[start + i];
 		i++;
